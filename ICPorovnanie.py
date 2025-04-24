@@ -5,15 +5,15 @@ from matplotlib.ticker import MultipleLocator
 import pandas as pd
 
 # Načítanie dát pre jednotlivé čiary
-file_paths = ["JungleJuice500mW.csv", "Amsterdam500mW.csv", "Rave500mW.csv"]
-offsets = [-200, -300, -400]  # Posuny pre jednotlivé dataset-y
-file_paths_cal = ["pvTz_Mol1_Ram", "pvTz_Mol2_Ram", "pvTz_Mol3_Ram", "pvTz_Mol4_Ram", "pvTz_Mol5_Ram"]
-offsets_cal = [-100, 0, 100, 200, 300]  # Posuny pre jednotlivé dataset-y
+file_paths = ["Jungle Juice_MIR.csv", "Amsterdam_MIR.csv", "Rave_MIR.csv"]
+offsets = [-300, -450, -600]  # Posuny pre jednotlivé dataset-y
+file_paths_cal = ["pvTz_Mol1", "pvTz_Mol2", "pvTz_Mol3", "pvTz_Mol4", "pvTz_Mol5"]
+offsets_cal = [-100, 50, 200, 350, 500]  # Posuny pre jednotlivé dataset-y
 data_list = []
 
 for file_path, offset in zip(file_paths, offsets):
     data = pd.read_csv(file_path, sep = ";", header = None )
-    x, y = data.iloc[:, 0], data.iloc[:, 1] * 200 + offset
+    x, y = data.iloc[:, 0], data.iloc[:, 1] * 1000 + offset
     data_list.append((x, y))
 
 for file_path, offset in zip(file_paths_cal, offsets_cal):
@@ -23,7 +23,7 @@ for file_path, offset in zip(file_paths_cal, offsets_cal):
 
 # Vytvorenie grafu s prerušením osi pomocou brokenaxes
 fig = plt.figure(figsize=(6, 9))
-bax = brokenaxes(xlims=((200, 1800), (2800, 3300)), hspace=0.05)  # Nastavenie prerušenia osi x
+bax = brokenaxes(xlims=((400, 1800), (2800, 3300)), hspace=0.05)  # Nastavenie prerušenia osi x
 
 # Vykreslenie čiar
 labels = ["Jungle Juice", "Amsterdam", "Rave", "1", "2", "3", "4", "5"]
@@ -31,9 +31,9 @@ for (x, y), label in zip(data_list, labels):
     bax.plot(x, y, linestyle='-', linewidth=2, label= label)
 
 # Nastavenie popisov
-bax.set_xlabel(r'Ramanov posun ($\text{cm}^{-1}$)', fontsize=20, labelpad = 40)
-bax.set_ylabel("Relatívna intenzita", fontsize=20, labelpad = 5)
-bax.legend(fontsize=15, loc='upper right', bbox_to_anchor = (0.85, 1))
+bax.set_xlabel(r'Vlnočet ($\text{cm}^{-1}$)', fontsize=20, labelpad = 40)
+bax.set_ylabel("Relatívna absorbancia", fontsize=20, labelpad = 5)
+bax.legend(fontsize=15, loc='upper right', bbox_to_anchor = (0.85, 0.9))
 
 # Nastavenie hlavných a vedľajších čiark na os x pre ľavú časť grafu (bax.axs[0])
 bax.axs[0].xaxis.set_major_locator(MultipleLocator(150))  # Hlavné čiarky každých 200 jednotiek
@@ -53,9 +53,6 @@ bax.axs[0].tick_params(axis='x', which='minor', length=5, width=1, labelsize=12)
 
 bax.axs[1].tick_params(axis='x', which='major', length=10, width=1.5, labelsize=20)  # Hlavné čiarky
 bax.axs[1].tick_params(axis='x', which='minor', length=5, width=1, labelsize=12)     # Vedľajšie čiarky
-
-bax.axs[0].set_ylim(-420, 400)
-bax.axs[1].set_ylim(-420, 900)
 
 plt.tight_layout()
 plt.show()
