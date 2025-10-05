@@ -36,13 +36,14 @@ ax.set_ylabel("Absorbancia", fontsize=20, labelpad = 5)
 ax.legend(fontsize=20, loc='upper left')
 
 # Nastavenie hlavných a vedľajších čiark na os x
-ax.xaxis.set_major_locator(MultipleLocator(200))  # Hlavné čiarky každých 200 jednotiek
-ax.xaxis.set_minor_locator(MultipleLocator(50))   # Vedľajšie čiarky každých 50 jednotiek
+ax.xaxis.set_major_locator(MultipleLocator(200)) 
+ax.xaxis.set_minor_locator(MultipleLocator(50)) 
 
 # Prispôsobenie vzhľadu čiark
 ax.tick_params(axis='x', which='major', length=10, width=1.5, labelsize=20)  # Hlavné čiarky
 ax.tick_params(axis='x', which='minor', length=5, width=1, labelsize=12)     # Vedľajšie čiarky
-ax.tick_params(axis='y', labelleft=False, length=0)  # Odstránenie čísel a čiark na osi y
+ax.tick_params(axis='y', labelleft=False, length=0) 
 
 plt.tight_layout()
+
 plt.show()
